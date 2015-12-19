@@ -1,9 +1,8 @@
 {
   "name": "ember-local-settings",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "A front-end for storing values in various local storages.",
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
   "scripts": {
@@ -15,7 +14,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Ben Demboski",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
@@ -39,7 +38,12 @@
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "cookie",
+    "ember-addon",
+    "local storage",
+    "registry",
+    "session storage",
+    "settings"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5"
