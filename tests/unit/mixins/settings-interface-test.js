@@ -8,6 +8,8 @@ import NoopSerializer from 'ember-local-settings/serializers/noop';
 import SettingsInterfaceMixin from 'ember-local-settings/mixins/settings-interface';
 import { module, test } from 'qunit';
 
+const { computed } = Ember;
+
 let TestObject = Ember.Object.extend(SettingsInterfaceMixin);
 
 module('Unit | Mixin | settings-interface');
@@ -171,4 +173,25 @@ test("settings object can accept property names used in SettingsInterfaceMixin",
   let props = obj.getProperties(properties);
   Ember.A(properties).forEach((prop) => obj.set(`settings.${prop}`, "value"));
   assert.deepEqual(obj.getProperties(properties), props, "properties were unaffected");
+});
+
+test("settings object notifies of changes correctly", function(assert) {
+  let MyClass = Ember.Object.extend({
+    localSettings: computed(function() {
+      return TestObject.create({
+        serializer: 'json',
+        adapter: 'local-memory'
+      });
+    }),
+
+    alias: computed('localSettings.settings.key', function() {
+      return this.get('localSettings.settings.key');
+    })
+  });
+
+  let obj = MyClass.create();
+  obj.set('localSettings.settings.key', 'value1');
+  assert.equal(obj.get('alias'), 'value1');
+  obj.set('localSettings.settings.key', 'value2');
+  assert.equal(obj.get('alias'), 'value2', "cache was invalidated");
 });

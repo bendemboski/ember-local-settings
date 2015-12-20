@@ -89,7 +89,9 @@ export default Mixin.create({
         return localSettings.getValue(key);
       },
       setUnknownProperty(key, value) {
-        return localSettings.setValue(key, value);
+        let ret = localSettings.setValue(key, value);
+        this.notifyPropertyChange(key);
+        return ret;
       }
     });
     return Settings.create();
