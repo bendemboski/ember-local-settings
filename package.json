@@ -10,7 +10,9 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/bendemboski/ember-local-settings",
+  "bugs": "https://github.com/bendemboski/ember-local-settings/issues",
+  "homepage": "https://github.com/bendemboski/ember-local-settings",
   "engines": {
     "node": ">= 0.10.0"
   },
