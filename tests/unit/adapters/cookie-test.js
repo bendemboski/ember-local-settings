@@ -1,5 +1,5 @@
-/* global Cookies */
 import Ember from 'ember';
+import Cookies from 'js-cookie';
 import CookieAdapter from 'ember-local-settings/adapters/cookie';
 import { module, test } from 'qunit';
 
@@ -69,8 +69,8 @@ test("getKeyAt() works", function(assert) {
     keys.push(this.adapter.getKeyAt(i));
   }
 
-  assert.ok(Ember.A(keys).contains(key1), "key1 was found in the keys");
-  assert.ok(Ember.A(keys).contains(key2), "key2 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key1), "key1 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key2), "key2 was found in the keys");
 });
 
 test("getKeys() works", function(assert) {
@@ -78,8 +78,8 @@ test("getKeys() works", function(assert) {
   Cookies.set(key2, "value2");
 
   let keys = this.adapter.getKeys();
-  assert.ok(Ember.A(keys).contains(key1), "key1 was found in the keys");
-  assert.ok(Ember.A(keys).contains(key2), "key1 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key1), "key1 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key2), "key1 was found in the keys");
 });
 
 test("options are constructed properly", function(assert) {
