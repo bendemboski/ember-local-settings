@@ -4,7 +4,8 @@ import LocalSettingsInterface from '../local-settings-interface';
 
 const {
   Service,
-  on
+  on,
+  testing
 } = Ember;
 
 /**
@@ -23,7 +24,7 @@ export default Service.extend(SettingsInterfaceMixin, {
    */
   initConfig: on('init', function() {
     const configProps = [ 'adapter', 'serializer', 'prefix' ];
-    const config = this.get('config') || {};
+    const config = this.get('config') || defaultConfig();
     Ember.A(configProps).forEach((prop) => {
       if (config[prop] && !this.get(prop)) {
         this.set(prop, config[prop]);
@@ -46,3 +47,10 @@ export default Service.extend(SettingsInterfaceMixin, {
     });
   }
 });
+
+function defaultConfig() {
+  // When testing, set the default to local memory so unit/integration tests
+  // (that run without initializers) don't need to do it themselves.
+  let adapter = testing ? 'local-memory' : 'local-storage';
+  return { adapter, serializer: 'json' };
+}
