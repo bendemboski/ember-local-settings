@@ -1,5 +1,5 @@
-/* global Cookies */
 import Ember from 'ember';
+import Cookies from 'js-cookie';
 
 const {
   NAME_KEY,

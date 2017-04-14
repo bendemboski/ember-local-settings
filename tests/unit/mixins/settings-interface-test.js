@@ -105,10 +105,10 @@ test("setValue() with null or undefined removes the value", function(assert) {
   obj.setValue('key2', 'value2');
 
   obj.setValue('key1', null);
-  assert.ok(!Ember.A(obj.get('serializer.storage')).contains('key1'), "setting to null deletes");
+  assert.ok(!Ember.A(obj.get('serializer.storage')).includes('key1'), "setting to null deletes");
 
   obj.setValue('key2', undefined);
-  assert.ok(!Ember.A(obj.get('serializer.storage')).contains('key2'), "setting to undefined deletes");
+  assert.ok(!Ember.A(obj.get('serializer.storage')).includes('key2'), "setting to undefined deletes");
 });
 
 test("prefix is respected", function(assert) {

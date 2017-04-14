@@ -70,8 +70,8 @@ test("getKeyAt() works", function(assert) {
     keys.push(this.adapter.getKeyAt(i));
   }
 
-  assert.ok(Ember.A(keys).contains(key1), "key1 was found in the keys");
-  assert.ok(Ember.A(keys).contains(key2), "key2 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key1), "key1 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key2), "key2 was found in the keys");
 });
 
 test("getKeys() works", function(assert) {
@@ -79,6 +79,6 @@ test("getKeys() works", function(assert) {
   localStorage.setItem(key2, "value2");
 
   let keys = this.adapter.getKeys();
-  assert.ok(Ember.A(keys).contains(key1), "key1 was found in the keys");
-  assert.ok(Ember.A(keys).contains(key2), "key1 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key1), "key1 was found in the keys");
+  assert.ok(Ember.A(keys).includes(key2), "key1 was found in the keys");
 });

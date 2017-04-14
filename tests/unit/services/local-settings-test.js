@@ -20,12 +20,12 @@ test("prefix and branching works", function(assert) {
   assert.equal(service.get('settings.key'), 'value');
   assert.equal(service.get('adapter').getValue('myapp/key'), 'value');
 
-  let interface = service.createBranch('path/');
-  assert.equal(interface.get('prefix'), 'myapp/path/');
-  assert.ok(!interface.get('settings.key'));
+  let iface = service.createBranch('path/');
+  assert.equal(iface.get('prefix'), 'myapp/path/');
+  assert.ok(!iface.get('settings.key'));
 
   service.set('settings.path/key2', 'value2');
-  assert.equal(interface.get('settings.key2'), 'value2');
+  assert.equal(iface.get('settings.key2'), 'value2');
 });
 
 test("it initializes properties from its config", function(assert) {
