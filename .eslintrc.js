@@ -5,16 +5,13 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'ember'
+    'eslint-plugin-turbopatent'
   ],
   extends: [
-    'eslint:recommended',
-    'plugin:ember/recommended'
+    'plugin:turbopatent/ember'
   ],
   env: {
     browser: true
-  },
-  rules: {
   },
   overrides: [
     // node files
@@ -28,7 +25,8 @@ module.exports = {
       ],
       excludedFiles: [
         'app/**',
-        'addon/**'
+        'addon/**',
+        'tests/dummy/app/**'
       ],
       parserOptions: {
         sourceType: 'script',
@@ -37,11 +35,7 @@ module.exports = {
       env: {
         browser: false,
         node: true
-      },
-      plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
-      })
+      }
     },
 
     // test files

@@ -39,9 +39,9 @@ export default Service.extend(SettingsInterfaceMixin, {
 
     let config = this.get('config');
     if (!config) {
-     // This only happens in tests when the initializer didn't run
-     config = { adapter: 'local-memory', serializer: 'json' };
-     this.set('config', config);
+      // This only happens in tests when the initializer didn't run
+      config = { adapter: 'local-memory', serializer: 'json' };
+      this.set('config', config);
     }
 
     this.set('prefix', config.prefix || '');

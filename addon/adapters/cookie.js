@@ -4,7 +4,7 @@ import Ember from 'ember';
 import Cookies from 'js-cookie';
 
 const {
- NAME_KEY
+  NAME_KEY
 } = Ember;
 
 /**

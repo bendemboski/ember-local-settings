@@ -14,4 +14,4 @@ module('Acceptance | Initializer', function(hooks) {
     assert.ok(service.get('adapter') instanceof LocalMemoryAdapter);
     assert.equal(service.get('prefix'), 'dummyApp/');
   });
-})
+});

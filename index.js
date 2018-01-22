@@ -27,7 +27,7 @@ module.exports = {
     return mergeTrees([
       vendorTree,
       new Funnel(jsCookieDir, {
-        files: ['js.cookie.js']
+        files: [ 'js.cookie.js' ]
       })
     ]);
   }

@@ -30,14 +30,14 @@ export default Mixin.create({
    *
    * @property serializer
    */
-   serializer: computed('config.serializer', function() {
-     let name = this.get('config.serializer');
-     let cls = serializers[name];
-     if (!cls) {
-       throw new Error(`Unrecognized local settings serializer: '${name}'`);
-     }
-     return cls.create({ config: this.get('config') });
-   }),
+  serializer: computed('config.serializer', function() {
+    let name = this.get('config.serializer');
+    let cls = serializers[name];
+    if (!cls) {
+      throw new Error(`Unrecognized local settings serializer: '${name}'`);
+    }
+    return cls.create({ config: this.get('config') });
+  }),
 
   /**
    * The prefix for stored values. This can be used to implement namespaces or

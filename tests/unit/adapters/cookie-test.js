@@ -22,7 +22,7 @@ module("Unit | Adapter | cookie", function(hooks) {
   hooks.afterEach(function() {
     // Be a good citizen
     clearKeys();
-  })
+  });
 
   test("getValue() works", function(assert) {
     assert.equal(this.adapter.getValue(key1), null, "value is null when not set");

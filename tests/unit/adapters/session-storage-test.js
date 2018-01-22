@@ -22,7 +22,7 @@ module("Unit | Adapter | session-storage", function(hooks) {
   hooks.afterEach(function() {
     // Be a good citizen
     clearKeys();
-  })
+  });
 
   // Since this uses the same base class as LocalStorageAdapter, this is just a
   // sanity check
