@@ -1,3 +1,4 @@
+import EmberObject from '@ember/object';
 import Ember from 'ember';
 
 const { NAME_KEY } = Ember;
@@ -8,7 +9,7 @@ const { NAME_KEY } = Ember;
  * @class JsonSerializer
  * @extends Ember.Object
  */
-let JsonSerializer = Ember.Object.extend({
+let JsonSerializer = EmberObject.extend({
   /**
    * Serialize a value
    *

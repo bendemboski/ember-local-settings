@@ -1,9 +1,10 @@
+import { A } from '@ember/array';
+import EmberObject, { computed } from '@ember/object';
 import Ember from 'ember';
 import Cookies from 'js-cookie';
 
 const {
-  NAME_KEY,
-  computed
+ NAME_KEY
 } = Ember;
 
 /**
@@ -12,7 +13,7 @@ const {
  * @class CookieAdapter
  * @extends Ember.Object
  */
-let CookieAdapter = Ember.Object.extend({
+let CookieAdapter = EmberObject.extend({
   /**
    * Cookie expiry in days
    *
@@ -56,7 +57,7 @@ let CookieAdapter = Ember.Object.extend({
   options: computed('expires', 'path', 'domain', 'secure', function() {
     let options = {};
     let props = this.getProperties([ 'expires', 'path', 'domain', 'secure' ]);
-    Ember.A(Object.keys(props)).forEach((key) => {
+    A(Object.keys(props)).forEach((key) => {
       if (props[key]) {
         options[key] = props[key];
       }

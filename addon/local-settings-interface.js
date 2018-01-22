@@ -1,3 +1,4 @@
+import EmberObject from '@ember/object';
 import Ember from 'ember';
 import SettingsInterfaceMixin from './mixins/settings-interface';
 
@@ -9,7 +10,7 @@ const { NAME_KEY } = Ember;
  * @extends Ember.Object
  * @uses SettingsInterfaceMixin
  */
-let LocalSettingsInterface = Ember.Object.extend(SettingsInterfaceMixin, {
+let LocalSettingsInterface = EmberObject.extend(SettingsInterfaceMixin, {
   /**
    * Create a "branch" -- a futher prefixed settings interface. The prefix is
    * appended to this service's prefix.
@@ -19,8 +20,7 @@ let LocalSettingsInterface = Ember.Object.extend(SettingsInterfaceMixin, {
    */
   createBranch(prefix) {
     return LocalSettingsInterface.create({
-      serializer: this.get('serializer'),
-      adapter: this.get('adapter'),
+      config: this.get('config'),
       prefix: this.get('prefix') + prefix
     });
   }

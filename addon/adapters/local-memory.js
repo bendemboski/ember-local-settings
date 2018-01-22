@@ -1,8 +1,9 @@
+import EmberObject from '@ember/object';
+import { alias } from '@ember/object/computed';
 import Ember from 'ember';
 
 const {
-  NAME_KEY,
-  computed
+  NAME_KEY
 } = Ember;
 
 /**
@@ -11,17 +12,15 @@ const {
  * @class LocalMemoryAdapter
  * @exten extends Ember.Object
  */
-let LocalMemoryAdapter = Ember.Object.extend({
+let LocalMemoryAdapter = EmberObject.extend({
   /**
-   * The storage hash
+   * The storage hash (in the config so it's shared across all instances)
    *
    * @property storage
    * @private
    * @type Object
    */
-  storage: computed(function() {
-    return {};
-  }),
+  storage: alias('config.localMemoryStorage'),
 
   /**
    * Get a value
@@ -80,6 +79,15 @@ let LocalMemoryAdapter = Ember.Object.extend({
    */
   getKeys() {
     return Object.keys(this.get('storage'));
+  },
+
+  init() {
+    this._super(...arguments);
+
+    // Make sure we have a storage hash
+    if (!this.get('storage')) {
+      this.set('storage', {});
+    }
   }
 });
 LocalMemoryAdapter[NAME_KEY] = "LocalMemoryLocalSettingsAdapter";

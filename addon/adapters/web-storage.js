@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const { computed } = Ember;
+import EmberObject, { computed } from '@ember/object';
 
 /**
  * Base class for adapters that store values in HTML5 web storage (localStorage
@@ -10,7 +8,7 @@ const { computed } = Ember;
  * @private
  * @extends Ember.OBject
  */
-export default Ember.Object.extend({
+export default EmberObject.extend({
   /**
    * The storage API to use -- either "localStorage" or "sessionStorage"
    *

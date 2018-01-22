@@ -1,12 +1,8 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
+import Mixin from '@ember/object/mixin';
+import EmberObject, { computed } from '@ember/object';
 import adapters from '../adapters';
 import serializers from '../serializers';
-
-const {
-  Mixin,
-  computed,
-  typeOf
-} = Ember;
 
 /**
  * A mixin implementing an interface to local settings
@@ -16,52 +12,32 @@ const {
  */
 export default Mixin.create({
   /**
-   * Helper property for defining the adapter
-   *
-   * @property _adapter
-   * @private
-   */
-  _adapter: null,
-
-  /**
-   * The adapter object used to store values. Can be set as an object, a class,
-   * or the name of an adapter.
+   * The adapter object used to store values
    *
    * @property adapter
    */
-  adapter: computed({
-    get() {
-      return this._adapter;
-    },
-    set(key, value) {
-      this._adapter = getNamedType("adapter", adapters, value);
-      return this._adapter;
+  adapter: computed('config.adapter', function() {
+    let name = this.get('config.adapter');
+    let cls = adapters[name];
+    if (!cls) {
+      throw new Error(`Unrecognized local settings adapter: '${name}'`);
     }
+    return cls.create({ config: this.get('config') });
   }),
 
   /**
-   * Helper property for defining the serializer
-   *
-   * @property _serializer
-   * @private
-   */
-  _serializer: null,
-
-  /**
-   * The serializer object used to serialize/deserialize values. Can be set to
-   * and object, a class, or the name of an serializer.
+   * The serializer object used to serialize/deserialize values
    *
    * @property serializer
    */
-  serializer: computed({
-    get() {
-      return this._serializer;
-    },
-    set(key, value) {
-      this._serializer = getNamedType("serializer", serializers, value);
-      return this._serializer;
-    }
-  }),
+   serializer: computed('config.serializer', function() {
+     let name = this.get('config.serializer');
+     let cls = serializers[name];
+     if (!cls) {
+       throw new Error(`Unrecognized local settings serializer: '${name}'`);
+     }
+     return cls.create({ config: this.get('config') });
+   }),
 
   /**
    * The prefix for stored values. This can be used to implement namespaces or
@@ -84,7 +60,7 @@ export default Mixin.create({
     // Play a little trick so we don't have to set any properties on the
     // settings object that could conflict with key names.
     let localSettings = this;
-    let Settings = Ember.Object.extend({
+    let Settings = EmberObject.extend({
       unknownProperty(key) {
         return localSettings.getValue(key);
       },
@@ -137,7 +113,7 @@ export default Mixin.create({
   getKeys() {
     let prefix = this.get('prefix');
     let keys = [];
-    Ember.A(this.get('adapter').getKeys()).forEach((key) => {
+    A(this.get('adapter').getKeys()).forEach((key) => {
       if (key.substring(0, prefix.length) === prefix) {
         keys.push(key.substring(prefix.length));
       }
@@ -145,29 +121,3 @@ export default Mixin.create({
     return keys;
   }
 });
-
-/**
- * Helper method for setting the adapter and serializer properties.
- *
- * @private
- * @param {String} typeName "serializer" or "adapter" - used in exception messages
- * @param {Object} typeMap a mapping from serializer/adapter name to class
- * @param {*} value either a serializer/adapter name, class or instance
- * @returns {*} serializer/adapter instace
- */
-function getNamedType(typeName, typeMap, value) {
-  let type = typeOf(value);
-
-  if (type === 'string') {
-    if (!typeMap[value]) {
-      throw new Error(`Unrecognized local settings ${typeName}: '${value}'`);
-    }
-    return typeMap[value].create();
-  } else if (type === 'class') {
-    return value.create();
-  } else if (type === 'instance') {
-    return value;
-  } else {
-    throw new Error(`Invalid ${typeName} type: ${type} (${type.toString()})`);
-  }
-}
