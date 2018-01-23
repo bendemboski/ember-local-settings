@@ -22,14 +22,14 @@ It uses a serializer/adapter model much like Ember Data -- the serializer conver
   - Uses `JSON.stringify` and `JSON.parse` to store the data as JSON strings
 1. `noop`
   - Leaves the data as-is. Can only be used with the `local-memory` adapter, or if only strings need to be stored.
-  
+
 ## Configuration
 
 The easiest way to configure the service is through `config/environment`:
 
 ```javascript
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     // ...
     localSettings: {
       serializer: 'json',
@@ -37,7 +37,7 @@ module.exports = function(environment) {
       prefix: 'myAppName/'
     }
   };
-  
+
   if (environment === 'test') {
     ENV.localSettings.adapter = 'local-memory';
   }
@@ -62,40 +62,23 @@ export function initialize(application) {
 }
 ```
 
-or via an instance initializer:
-
-```javascript
-export function initialize(application) {
-  let service = application.container.lookup('service:local-settings');
-  service.setProperties({
-    serializer: 'json',
-    adapter: 'local-storage',
-    prefix: 'myAppName/'
-  });
-}
-```
-
-### Using your own serializer and adapters
-
-The `serializer` and `adapter` arguments in either of the initializers above can also be an instance or a class, so if you implement your own serializer or adapter, simply pass in the class or an instance, and if you think it would be useful, submit a pull request to include it in the addon!
-
 ## Usage
 
 There are two APIs that you can use to get and store values. The first one is the using the `getValue()` and `setValue()` method on the service. The second is using the `settings` proxy, which allows access using Ember `get()` and `set()` semantics:
 
 ```javascript
-import Ember from 'Ember';
+import { inject as service } from '@ember/service';
 
 export default Ember.Controller.extend({
-  localSettings: Ember.inject.service('local-settings'),
-  
+  localSettings: service('local-settings'),
+
   doStuff() {
     let localSettings = this.get('localSettings');
     // The following are equivalent:
     localSettings.setValue('key', 'value');
     localSettings.set('settings.key', 'value');
     localSettings.get('settings').set('key', 'value');
-    
+
     localSettings.getValue('key');
     localSettings.get('settings.key');
     localSettings.get('settings').get('key');
@@ -114,31 +97,31 @@ Prefixes allow you to scope settings to your application or to specific parts of
 Similarly, if your application is complex enough, you might have different parts of it writing settings (e.g. components that want to save state), so you might want to be able to apply prefixes to specific areas of your code. You can do this with the `createBranch()` method on the service, which allows you to specify another prefix and get back an object with the same semantics as the service, and with the new prefix appended to the service's prefix. This object, in turn, also implements `createBranch()` so you can continue branching as deep as you like:
 
 ```javascript
-import Ember from 'Ember';
+import { inject as service } from '@ember/service';
 
 export default Ember.Controller.extend({
-  localSettings: Ember.inject.service('local-settings'),
-  
+  localSettings: service('local-settings'),
+
   doStuff() {
     let localSettings = this.get('localSettings');
     // If localSettings is configured with the prefix 'myApp' then this will be
     // stored in the underlying storage as 'myApp/key'.
     localSettings.set('settings.key', 'value');
-    
+
     let branch = localSettings.createBranch('branch/');
     branch.get('settings.key'); // null
     branch.set('settings.key', 'branchValue');
-    
+
     localSettings.get('settings.key'); // 'value'
     localSettings.get('settings.branch/key'); // 'branchValue'
-    
+
     let subBranch = branch.createBranch('subBranch/');
     subBranch.set('settings.key', 'subBranchValue');
-    
+
     localSettings.get('settings.branch/subBranch/key'); // 'subBranchValue'
     branch.get('settings.subBranch/key'); // 'subBranchValue'
     subBranch.get('settings.key'); // 'subBranchValue'
-    
+
     localSettings.get('settings.key'); // 'value'
     branch.get('settings.key'); // 'branchValue'
     subBranch.get('settings.key'); // 'subBranchValue'
@@ -150,14 +133,17 @@ Each branch will share the serializer and adapter of its parent.
 
 ### Non-singleton usage
 
-The entire implementation is also available via the `LocalSettingsInterface` class, which is a simple class extending `Ember.Object` which you can instantiate directly:
+The entire implementation is also available via the `LocalSettingsInterface` class, which is a simple class extending `Ember.Object` which you can instantiate directly (note that the prefix needs to be specified
+outside the config hash):
 
 ```javascript
 import LocalSettingsInterface from 'local-settings-interface';
 
 let interface = LocalSettingsInterface.create({
-  serializer: 'json',
-  adapter: 'local-storage',
+  config: {
+    serializer: 'json',
+    adapter: 'local-storage'
+  },
   prefix: 'myAppName/'
 });
 interface.set('settings.key', 'value');
@@ -168,7 +154,7 @@ let branch = interface.createBranch('branch/');
 
 #### A note about the local memory adapter
 
-Since the `local-memory` adapter stores its values in local memory, if you instantiate multiple instances of `LocalSettingsInterface` you can either pass it the same adapter instance, in which case they will all share the same storage, or different adapter instances, in which case they will each have their own storage. This is mostly useful for isolation in unit tests.
+Since the `local-memory` adapter stores its values in local memory, if you instantiate multiple instances of `LocalSettingsInterface` you can either pass it the same config object, in which case they will all share the same storage, or different config objects, in which case they will each have their own storage. This is mostly useful for isolation in unit tests.
 
 ## Installing The Addon
 
@@ -181,7 +167,6 @@ ember install ember-local-settings
 * `git clone <repository-url>` this repository
 * `cd ember-local-settings`
 * `npm install`
-* `bower install`
 
 ## Running
 

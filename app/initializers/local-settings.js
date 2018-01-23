@@ -1,16 +1,12 @@
-import ENV from '../config/environment';
-
-export function initialize() {
-  // Depending on the context the first argument might be the registry, or it
-  // might be the application.
-  const application = arguments[1] || arguments[0];
-  const {
+export function initialize(application) {
+  let env = application.resolveRegistration('config:environment') || {};
+  let {
     localSettings: config = {
       serializer: 'json',
       adapter: 'local-storage',
       prefix: 'emberApp/'
     }
-  } = ENV;
+  } = env;
 
   application.register('config:local-settings', config, { instantiate: false });
   application.inject('service:local-settings', 'config', 'config:local-settings');

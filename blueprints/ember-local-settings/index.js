@@ -1,8 +1,8 @@
 module.exports = {
-  normalizeEntityName: function() {
+  normalizeEntityName() {
   },
 
-  afterInstall: function() {
+  afterInstall() {
     return this.addBowerPackageToProject('js-cookie', '~2.0.4');
   }
-}
+};
