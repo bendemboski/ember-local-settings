@@ -2355,13 +2355,13 @@ eslint-plugin-ember@^5.0.2:
     require-folder-tree "^1.4.5"
     snake-case "^2.1.0"
 
-"eslint-plugin-no-only-tests@https://github.com/bendemboski/eslint-plugin-no-only-tests.git#6fde3db7cb547c600a12abbf486f3bee3a49fcf2":
+"eslint-plugin-no-only-tests@git+https://github.com/bendemboski/eslint-plugin-no-only-tests.git#6fde3db7cb547c600a12abbf486f3bee3a49fcf2":
   version "2.0.0"
-  resolved "https://github.com/bendemboski/eslint-plugin-no-only-tests.git#6fde3db7cb547c600a12abbf486f3bee3a49fcf2"
+  resolved "git+https://github.com/bendemboski/eslint-plugin-no-only-tests.git#6fde3db7cb547c600a12abbf486f3bee3a49fcf2"
 
-"eslint-plugin-turbopatent@https://github.com/PatentNavigation/eslint-plugin-turbopatent.git#6fe2c2f18c4433c67d11cb0926396b5c82702a39":
-  version "3.0.0"
-  resolved "https://github.com/PatentNavigation/eslint-plugin-turbopatent.git#6fe2c2f18c4433c67d11cb0926396b5c82702a39"
+eslint-plugin-turbopatent@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-turbopatent/-/eslint-plugin-turbopatent-3.0.1.tgz#f8afbb0ee96489789f370e8afde56c07c3e29da5"
   dependencies:
     eslint-plugin-ember "^5.0.2"
     eslint-plugin-no-only-tests "https://github.com/bendemboski/eslint-plugin-no-only-tests.git#6fde3db7cb547c600a12abbf486f3bee3a49fcf2"
