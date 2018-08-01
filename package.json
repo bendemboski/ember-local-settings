@@ -27,13 +27,13 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
+    "broccoli-funnel": "^2.0.1",
+    "broccoli-merge-trees": "^3.0.0",
     "ember-cli-babel": "^6.16.0",
     "js-cookie": "^2.1.4"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.7.0",
-    "broccoli-funnel": "^2.0.1",
-    "broccoli-merge-trees": "^3.0.0",
     "ember-ajax": "^3.1.0",
     "ember-cli": "~3.3.0",
     "ember-cli-dependency-checker": "^3.0.0",
@@ -53,6 +53,7 @@
     "ember-source": "~3.3.0",
     "ember-source-channel-url": "^1.0.1",
     "ember-try": "^0.2.23",
+    "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-turbopatent": "^3.0.2",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.7.1"
