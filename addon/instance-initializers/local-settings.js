@@ -1,4 +1,4 @@
-import { copy } from '@ember/object/internals';
+import { assign } from '@ember/polyfills';
 
 export function initialize(appInstance) {
   let env = appInstance.resolveRegistration('config:environment') || {};
@@ -13,7 +13,7 @@ export function initialize(appInstance) {
   // The local memory adapter stores state in the configuration that we want to
   // be isolated by application, so we implement this as an instance initializer
   // that injects a copy of the config into the service.
-  appInstance.register('config:local-settings', copy(config), { instantiate: false });
+  appInstance.register('config:local-settings', assign({}, config), { instantiate: false });
   appInstance.inject('service:local-settings', 'config', 'config:local-settings');
 }
 
