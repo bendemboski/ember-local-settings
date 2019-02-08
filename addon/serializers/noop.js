@@ -1,7 +1,4 @@
 import EmberObject from '@ember/object';
-import Ember from 'ember';
-
-const { NAME_KEY } = Ember;
 
 /**
  * A serializer that passes values through as-is. Can only be used with
@@ -32,6 +29,11 @@ let NoopSerializer = EmberObject.extend({
     return value;
   }
 });
-NoopSerializer[NAME_KEY] = "NoopLocalSettingsSerializer";
+
+NoopSerializer.reopenClass({
+  toString() {
+    return "ember-local-settings/serializers/noop";
+  }
+});
 
 export default NoopSerializer;

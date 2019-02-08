@@ -1,7 +1,4 @@
-import Ember from 'ember';
 import WebStorageAdapter from './web-storage';
-
-const { NAME_KEY } = Ember;
 
 /**
  * Adapter that stores values in HTML5 local storage.
@@ -16,6 +13,11 @@ let SessionStorageAdapter = WebStorageAdapter.extend({
    */
   storageAPI: 'sessionStorage'
 });
-SessionStorageAdapter[NAME_KEY] = 'SessionStorageLocalSettingsAdapter';
+
+SessionStorageAdapter.reopenClass({
+  toString() {
+    return "ember-local-settings/adapters/session-storage";
+  }
+});
 
 export default SessionStorageAdapter;

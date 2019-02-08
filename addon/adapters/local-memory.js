@@ -1,10 +1,5 @@
 import EmberObject from '@ember/object';
 import { alias } from '@ember/object/computed';
-import Ember from 'ember';
-
-const {
-  NAME_KEY
-} = Ember;
 
 /**
  * Adapter that stores values in an in-memory hash.
@@ -90,11 +85,14 @@ let LocalMemoryAdapter = EmberObject.extend({
     }
   }
 });
-LocalMemoryAdapter[NAME_KEY] = "LocalMemoryLocalSettingsAdapter";
 
 export default LocalMemoryAdapter;
 
 LocalMemoryAdapter.reopenClass({
+  toString() {
+    return "ember-local-settings/adapters/local-memory";
+  },
+
   clearStorage() {
     LocalMemoryAdapter.prototype.storage = {};
   }

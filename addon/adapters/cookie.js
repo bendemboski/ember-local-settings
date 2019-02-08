@@ -1,11 +1,6 @@
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
-import Ember from 'ember';
 import Cookies from 'js-cookie';
-
-const {
-  NAME_KEY
-} = Ember;
 
 /**
  * Adapter that stores values in cookies
@@ -124,6 +119,11 @@ let CookieAdapter = EmberObject.extend({
     return Object.keys(Cookies.get());
   }
 });
-CookieAdapter[NAME_KEY] = "CookieLocalSettingsAdapter";
+
+CookieAdapter.reopenClass({
+  toString() {
+    return "ember-local-settings/adapters/cookie";
+  }
+});
 
 export default CookieAdapter;
