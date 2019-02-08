@@ -4,8 +4,10 @@ import { module, test } from 'qunit';
 module('Unit | local-settings-interface', function() {
   test("branching works", function(assert) {
     let iface = LocalSettingsInterface.create({
-      serializer: 'noop',
-      adapter: 'local-memory'
+      config: {
+        serializer: 'noop',
+        adapter: 'local-memory'
+      }
     });
 
     let iface2 = iface.createBranch('level1/');

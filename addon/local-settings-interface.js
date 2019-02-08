@@ -1,8 +1,5 @@
 import EmberObject from '@ember/object';
-import Ember from 'ember';
 import SettingsInterfaceMixin from './mixins/settings-interface';
-
-const { NAME_KEY } = Ember;
 
 /**
  * An object implementing a settings interface.
@@ -25,6 +22,11 @@ let LocalSettingsInterface = EmberObject.extend(SettingsInterfaceMixin, {
     });
   }
 });
-LocalSettingsInterface[NAME_KEY] = "LocalSettingsInterface";
+
+LocalSettingsInterface.reopenClass({
+  toString() {
+    return "ember-local-settings/interface";
+  }
+});
 
 export default LocalSettingsInterface;

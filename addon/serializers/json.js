@@ -1,7 +1,4 @@
 import EmberObject from '@ember/object';
-import Ember from 'ember';
-
-const { NAME_KEY } = Ember;
 
 /**
  * A serializer that serializes values to JSON strings.
@@ -36,6 +33,11 @@ let JsonSerializer = EmberObject.extend({
     return JSON.parse(value);
   }
 });
-JsonSerializer[NAME_KEY] = "JsonLocalSettingsSerializer";
+
+JsonSerializer.reopenClass({
+  toString() {
+    return "ember-local-settings/serializers/json";
+  }
+});
 
 export default JsonSerializer;

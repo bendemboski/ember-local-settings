@@ -19,6 +19,8 @@ module.exports = {
     // node files
     {
       files: [
+        '.eslintrc.js',
+        '.template-lintrc.js',
         'ember-cli-build.js',
         'index.js',
         'testem.js',
@@ -40,7 +42,7 @@ module.exports = {
         browser: false,
         node: true
       },
-      plugins: ['node'],
+      plugins: [ 'node' ],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
       })
