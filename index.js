@@ -5,7 +5,7 @@ const mergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 
 module.exports = {
-  name: 'ember-local-settings',
+  name: require('./package').name,
 
   included(app) {
     this._super(...arguments);
