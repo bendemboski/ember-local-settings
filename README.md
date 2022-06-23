@@ -25,7 +25,7 @@ It uses a serializer/adapter model much like Ember Data -- the serializer conver
 
 ## Configuration
 
-The easiest way to configure the service is through `config/environment`:
+The service is configured through `config/environment`:
 
 ```javascript
 module.exports = function(environment) {
@@ -46,21 +46,6 @@ module.exports = function(environment) {
 ```
 
 Using the `local-memory` adapter is recommended for test mode so that tests don't leak state into other tests through more persistent storage.
-
-Alternatively, the service can be configured manually, for example, via an initializer:
-
-```javascript
-export function initialize(application) {
-  const config = {
-    serializer: 'json',
-    adapter: 'local-storage',
-    prefix: 'myAppName/'
-  };
-
-  application.register('config:local-settings', config, { instantiate: false });
-  application.inject('service:local-settings', 'config', 'config:local-settings');
-}
-```
 
 ## Usage
 

@@ -1,5 +1,6 @@
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import CookieAdapter from 'ember-local-settings/adapters/cookie';
 import LocalMemoryAdapter from 'ember-local-settings/adapters/local-memory';
 import LocalStorageAdapter from 'ember-local-settings/adapters/local-storage';
@@ -187,7 +188,7 @@ module('Unit | Mixin | settings-interface', function () {
         });
       }),
 
-      alias: computed.reads('localSettings.settings.key'),
+      alias: reads('localSettings.settings.key'),
     });
 
     let obj = MyClass.create();
