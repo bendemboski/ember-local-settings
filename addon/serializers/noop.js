@@ -27,13 +27,13 @@ let NoopSerializer = EmberObject.extend({
    */
   deserialize(value) {
     return value;
-  }
+  },
 });
 
 NoopSerializer.reopenClass({
   toString() {
-    return "ember-local-settings/serializers/noop";
-  }
+    return 'ember-local-settings/serializers/noop';
+  },
 });
 
 export default NoopSerializer;

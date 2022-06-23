@@ -3,5 +3,5 @@ import Noop from './serializers/noop';
 
 export default {
   json: Json,
-  noop: Noop
+  noop: Noop,
 };

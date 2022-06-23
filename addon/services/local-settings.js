@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import SettingsInterfaceMixin from '../mixins/settings-interface';
 import LocalSettingsInterface from '../local-settings-interface';
+import { getOwner } from '@ember/application';
 
 /**
  * A service implementing a settings interface.
@@ -29,21 +30,23 @@ export default Service.extend(SettingsInterfaceMixin, {
   prefix: '',
 
   /**
-   * On initialization, read in the config property and use it to set any unset
-   * properties. This config property is meant to be injected from an
-   * initializer to allow easier configuration of the service, e.g. from the
-   * environment.
+   * On initialization, read in the config from the environment and use it to
+   * set any unset properties.
    */
   init() {
     this._super(...arguments);
 
-    let config = this.get('config');
-    if (!config) {
-      // This only happens in tests when the initializer didn't run
-      config = { adapter: 'local-memory', serializer: 'json' };
-      this.set('config', config);
-    }
-
+    let env = getOwner(this).resolveRegistration('config:environment') || {};
+    let {
+      localSettings: config = {
+        serializer: 'json',
+        adapter: 'local-storage',
+        prefix: 'emberApp/',
+      },
+    } = env;
+    // Make a copy so we can add properties to the config without it affecting
+    // the environment
+    this.set('config', { ...config });
     this.set('prefix', config.prefix || '');
   },
 
@@ -56,8 +59,8 @@ export default Service.extend(SettingsInterfaceMixin, {
    */
   createBranch(prefix) {
     return LocalSettingsInterface.create({
-      config: this.get('config'),
-      prefix: this.get('prefix') + prefix
+      config: this.config,
+      prefix: this.prefix + prefix,
     });
-  }
+  },
 });

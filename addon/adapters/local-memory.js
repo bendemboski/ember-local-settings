@@ -24,7 +24,7 @@ let LocalMemoryAdapter = EmberObject.extend({
    * @returns {String} value
    */
   getValue(key) {
-    return this.get('storage')[key];
+    return this.storage[key];
   },
 
   /**
@@ -35,7 +35,7 @@ let LocalMemoryAdapter = EmberObject.extend({
    * @return {Void}
    */
   setValue(key, value) {
-    this.get('storage')[key] = value;
+    this.storage[key] = value;
   },
 
   /**
@@ -45,7 +45,7 @@ let LocalMemoryAdapter = EmberObject.extend({
    * @return {Void}
    */
   deleteValue(key) {
-    delete this.get('storage')[key];
+    delete this.storage[key];
   },
 
   /**
@@ -73,27 +73,27 @@ let LocalMemoryAdapter = EmberObject.extend({
    * @returns {Array}
    */
   getKeys() {
-    return Object.keys(this.get('storage'));
+    return Object.keys(this.storage);
   },
 
   init() {
     this._super(...arguments);
 
     // Make sure we have a storage hash
-    if (!this.get('storage')) {
+    if (!this.storage) {
       this.set('storage', {});
     }
-  }
+  },
 });
 
 export default LocalMemoryAdapter;
 
 LocalMemoryAdapter.reopenClass({
   toString() {
-    return "ember-local-settings/adapters/local-memory";
+    return 'ember-local-settings/adapters/local-memory';
   },
 
   clearStorage() {
     LocalMemoryAdapter.prototype.storage = {};
-  }
+  },
 });

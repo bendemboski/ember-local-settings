@@ -16,13 +16,13 @@ export default Mixin.create({
    *
    * @property adapter
    */
-  adapter: computed('config.adapter', function() {
-    let name = this.get('config.adapter');
+  adapter: computed('config.adapter', function () {
+    let name = this.config.adapter;
     let cls = adapters[name];
     if (!cls) {
       throw new Error(`Unrecognized local settings adapter: '${name}'`);
     }
-    return cls.create({ config: this.get('config') });
+    return cls.create({ config: this.config });
   }),
 
   /**
@@ -30,13 +30,13 @@ export default Mixin.create({
    *
    * @property serializer
    */
-  serializer: computed('config.serializer', function() {
-    let name = this.get('config.serializer');
+  serializer: computed('config.serializer', function () {
+    let name = this.config.serializer;
     let cls = serializers[name];
     if (!cls) {
       throw new Error(`Unrecognized local settings serializer: '${name}'`);
     }
-    return cls.create({ config: this.get('config') });
+    return cls.create({ config: this.config });
   }),
 
   /**
@@ -56,7 +56,7 @@ export default Mixin.create({
    *
    * @property settings
    */
-  settings: computed(function() {
+  settings: computed(function () {
     // Play a little trick so we don't have to set any properties on the
     // settings object that could conflict with key names.
     let localSettings = this;
@@ -68,7 +68,7 @@ export default Mixin.create({
         let ret = localSettings.setValue(key, value);
         this.notifyPropertyChange(key);
         return ret;
-      }
+      },
     });
     return Settings.create();
   }),
@@ -80,8 +80,8 @@ export default Mixin.create({
    * @returns {*}
    */
   getValue(key) {
-    let value = this.get('adapter').getValue(`${this.get('prefix')}${key}`);
-    return this.get('serializer').deserialize(value);
+    let value = this.adapter.getValue(`${this.prefix}${key}`);
+    return this.serializer.deserialize(value);
   },
 
   /**
@@ -92,16 +92,16 @@ export default Mixin.create({
    * @returns {*} value
    */
   setValue(key, value) {
-    key = `${this.get('prefix')}${key}`;
+    key = `${this.prefix}${key}`;
 
-    let adapter = this.get('adapter');
+    let adapter = this.adapter;
 
     if (value === null || value === undefined) {
       adapter.deleteValue(key);
       return value;
     }
 
-    adapter.setValue(key, this.get('serializer').serialize(value));
+    adapter.setValue(key, this.serializer.serialize(value));
     return adapter.getValue(key);
   },
 
@@ -111,13 +111,13 @@ export default Mixin.create({
    * @returns {Array}
    */
   getKeys() {
-    let prefix = this.get('prefix');
+    let prefix = this.prefix;
     let keys = [];
-    A(this.get('adapter').getKeys()).forEach((key) => {
+    A(this.adapter.getKeys()).forEach((key) => {
       if (key.substring(0, prefix.length) === prefix) {
         keys.push(key.substring(prefix.length));
       }
     });
     return keys;
-  }
+  },
 });
