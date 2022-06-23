@@ -11,13 +11,13 @@ let SessionStorageAdapter = WebStorageAdapter.extend({
    * @property storageAPI
    * @private
    */
-  storageAPI: 'sessionStorage'
+  storageAPI: 'sessionStorage',
 });
 
 SessionStorageAdapter.reopenClass({
   toString() {
-    return "ember-local-settings/adapters/session-storage";
-  }
+    return 'ember-local-settings/adapters/session-storage';
+  },
 });
 
 export default SessionStorageAdapter;

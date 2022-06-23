@@ -23,8 +23,8 @@ export default EmberObject.extend({
    * @property storage
    * @private
    */
-  storage: computed('storageAPI', function() {
-    return window[this.get('storageAPI')];
+  storage: computed('storageAPI', function () {
+    return window[this.storageAPI];
   }),
 
   /**
@@ -34,7 +34,7 @@ export default EmberObject.extend({
    * @returns {String} value
    */
   getValue(key) {
-    return this.get('storage').getItem(key);
+    return this.storage.getItem(key);
   },
 
   /**
@@ -45,7 +45,7 @@ export default EmberObject.extend({
    * @return {Void}
    */
   setValue(key, value) {
-    this.get('storage').setItem(key, value);
+    this.storage.setItem(key, value);
   },
 
   /**
@@ -55,7 +55,7 @@ export default EmberObject.extend({
    * @return {Void}
    */
   deleteValue(key) {
-    this.get('storage').removeItem(key);
+    this.storage.removeItem(key);
   },
 
   /**
@@ -64,7 +64,7 @@ export default EmberObject.extend({
    * @returns {Integer}
    */
   getItemCount() {
-    return this.get('storage').length;
+    return this.storage.length;
   },
 
   /**
@@ -74,7 +74,7 @@ export default EmberObject.extend({
    * @returns {String}
    */
   getKeyAt(index) {
-    return this.get('storage').key(index);
+    return this.storage.key(index);
   },
 
   /**
@@ -89,5 +89,5 @@ export default EmberObject.extend({
       keys.push(this.getKeyAt(i));
     }
     return keys;
-  }
+  },
 });

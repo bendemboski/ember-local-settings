@@ -31,13 +31,13 @@ let JsonSerializer = EmberObject.extend({
       return null;
     }
     return JSON.parse(value);
-  }
+  },
 });
 
 JsonSerializer.reopenClass({
   toString() {
-    return "ember-local-settings/serializers/json";
-  }
+    return 'ember-local-settings/serializers/json';
+  },
 });
 
 export default JsonSerializer;

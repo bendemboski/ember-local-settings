@@ -17,16 +17,16 @@ let LocalSettingsInterface = EmberObject.extend(SettingsInterfaceMixin, {
    */
   createBranch(prefix) {
     return LocalSettingsInterface.create({
-      config: this.get('config'),
-      prefix: this.get('prefix') + prefix
+      config: this.config,
+      prefix: this.prefix + prefix,
     });
-  }
+  },
 });
 
 LocalSettingsInterface.reopenClass({
   toString() {
-    return "ember-local-settings/interface";
-  }
+    return 'ember-local-settings/interface';
+  },
 });
 
 export default LocalSettingsInterface;

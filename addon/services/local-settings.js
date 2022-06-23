@@ -37,7 +37,7 @@ export default Service.extend(SettingsInterfaceMixin, {
   init() {
     this._super(...arguments);
 
-    let config = this.get('config');
+    let config = this.config;
     if (!config) {
       // This only happens in tests when the initializer didn't run
       config = { adapter: 'local-memory', serializer: 'json' };
@@ -56,8 +56,8 @@ export default Service.extend(SettingsInterfaceMixin, {
    */
   createBranch(prefix) {
     return LocalSettingsInterface.create({
-      config: this.get('config'),
-      prefix: this.get('prefix') + prefix
+      config: this.config,
+      prefix: this.prefix + prefix,
     });
-  }
+  },
 });

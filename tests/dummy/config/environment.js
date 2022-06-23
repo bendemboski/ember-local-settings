@@ -25,8 +25,8 @@ module.exports = function (environment) {
     localSettings: {
       serializer: 'json',
       adapter: 'local-memory',
-      prefix: 'dummyApp/'
-    }
+      prefix: 'dummyApp/',
+    },
   };
 
   if (environment === 'development') {

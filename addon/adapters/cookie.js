@@ -1,4 +1,3 @@
-import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import Cookies from 'js-cookie';
 
@@ -49,14 +48,21 @@ let CookieAdapter = EmberObject.extend({
    * @type Object
    * @default {}
    */
-  options: computed('expires', 'path', 'domain', 'secure', function() {
+  options: computed('expires', 'path', 'domain', 'secure', function () {
     let options = {};
-    let props = this.getProperties([ 'expires', 'path', 'domain', 'secure' ]);
-    A(Object.keys(props)).forEach((key) => {
-      if (props[key]) {
-        options[key] = props[key];
-      }
-    });
+    let { expires, path, domain, secure } = this;
+    if (expires) {
+      options.expires = expires;
+    }
+    if (path) {
+      options.path = path;
+    }
+    if (domain) {
+      options.domain = domain;
+    }
+    if (secure) {
+      options.secure = secure;
+    }
     return options;
   }),
 
@@ -78,7 +84,7 @@ let CookieAdapter = EmberObject.extend({
    * @return {Void}
    */
   setValue(key, value) {
-    Cookies.set(key, value, this.get('options'));
+    Cookies.set(key, value, this.options);
   },
 
   /**
@@ -88,7 +94,7 @@ let CookieAdapter = EmberObject.extend({
    * @return {Void}
    */
   deleteValue(key) {
-    Cookies.remove(key, this.get('options'));
+    Cookies.remove(key, this.options);
   },
 
   /**
@@ -117,13 +123,13 @@ let CookieAdapter = EmberObject.extend({
    */
   getKeys() {
     return Object.keys(Cookies.get());
-  }
+  },
 });
 
 CookieAdapter.reopenClass({
   toString() {
-    return "ember-local-settings/adapters/cookie";
-  }
+    return 'ember-local-settings/adapters/cookie';
+  },
 });
 
 export default CookieAdapter;

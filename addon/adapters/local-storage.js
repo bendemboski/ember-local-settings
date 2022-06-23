@@ -11,13 +11,13 @@ let LocalStorageAdapter = WebStorageAdapter.extend({
    * @property storageAPI
    * @private
    */
-  storageAPI: 'localStorage'
+  storageAPI: 'localStorage',
 });
 
 LocalStorageAdapter.reopenClass({
   toString() {
-    return "ember-local-settings/adapters/local-storage";
-  }
+    return 'ember-local-settings/adapters/local-storage';
+  },
 });
 
 export default LocalStorageAdapter;
